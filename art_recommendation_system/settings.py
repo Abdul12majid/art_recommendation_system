@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
+from keys.key import KEY, C_NAME, api_key, api_secret, db_PASSWORD, db_HOST, db_PORT
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('key_key')
+SECRET_KEY = KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -124,6 +125,33 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': C_NAME,
+    'API_KEY': api_key,
+    'API_SECRET': api_secret,
+}
+CORS_ORIGIN_ALLOW_ALL = True
+
+ #Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+# Add these at the top of your settings.py
+
+# Replace the DATABASES section of your settings.py with this
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'sallah_db',
+    'USER': 'sallah_db_owner',
+    'PASSWORD': db_PASSWORD,
+    'HOST': db_HOST,
+    'PORT': db_PORT,
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+  }
+}
 
 
 # Static files (CSS, JavaScript, Images)
